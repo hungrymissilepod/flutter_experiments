@@ -8,6 +8,8 @@ import 'package:flutter_app_template/ui/views/counter/counter_view.dart';
 import 'package:flutter_app_template/ui/views/login/login_view.dart';
 import 'package:flutter_app_template/services/authentication_service.dart';
 import 'package:flutter_app_template/services/dio_service.dart';
+import 'package:flutter_app_template/ui/views/gooey_edge_demo/gooey_edge_demo_view.dart';
+import 'package:flutter_app_template/ui/views/stars_demo/stars_demo_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -16,6 +18,8 @@ import 'package:flutter_app_template/services/dio_service.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: CounterView),
     MaterialRoute(page: LoginView),
+    MaterialRoute(page: GooeyEdgeDemoView),
+    MaterialRoute(page: StarsDemoView),
 // @stacked-route
   ],
   dependencies: [
