@@ -29,14 +29,22 @@ class StarFieldPainter extends CustomPainter {
         if (stars[i].color == Colors.red) {
           var glowSizeX = scale * 6 + 2 * (sin(time * .25));
           var glowSizeY = scale * 6 + 2 * (cos(time * .150));
-          var src = Rect.fromPoints(Offset.zero, Offset(glowImage!.width.toDouble(), glowImage!.height.toDouble()));
-          var rect = Rect.fromCenter(center: pos, width: glowSizeX, height: glowSizeY);
+          var src = Rect.fromPoints(
+              Offset.zero,
+              Offset(
+                  glowImage!.width.toDouble(), glowImage!.height.toDouble()));
+          var rect =
+              Rect.fromCenter(center: pos, width: glowSizeX, height: glowSizeY);
           canvas.drawImageRect(glowImage!, src, rect, paint);
         } else {
           var glowSizeX = scale * 8 + 2 * (sin(time * .5));
           var glowSizeY = scale * 8 + 2 * (cos(time * .75));
-          var src = Rect.fromPoints(Offset.zero, Offset(glowImage!.width.toDouble(), glowImage!.height.toDouble()));
-          var rect = Rect.fromCenter(center: pos, width: glowSizeX, height: glowSizeY);
+          var src = Rect.fromPoints(
+              Offset.zero,
+              Offset(
+                  glowImage!.width.toDouble(), glowImage!.height.toDouble()));
+          var rect =
+              Rect.fromCenter(center: pos, width: glowSizeX, height: glowSizeY);
           canvas.drawImageRect(glowImage!, src, rect, paint);
         }
       }

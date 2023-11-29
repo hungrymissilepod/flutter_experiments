@@ -39,7 +39,8 @@ class _StarFieldState extends State<StarField> {
 
   Future<void> _loadGlowImage() async {
     final ByteData data = await rootBundle.load('assets/stars/glow.png');
-    ui.decodeImageFromList(Uint8List.view(data.buffer), (img) => glowImage = img);
+    ui.decodeImageFromList(
+        Uint8List.view(data.buffer), (img) => glowImage = img);
   }
 
   void _handleStarTick(Duration duration) {

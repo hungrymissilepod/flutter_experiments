@@ -21,4 +21,8 @@ class HomeViewModel extends BaseViewModel {
   void navigateToStarsDemo() {
     _navigationService.navigateToStarsDemoView();
   }
+
+  void navigateToSparklePartyDemo() {
+    _navigationService.navigateToSparklePartyDemoView();
+  }
 }

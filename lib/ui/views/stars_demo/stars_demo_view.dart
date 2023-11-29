@@ -84,7 +84,8 @@ class _StarsDemoState extends State<StarsDemo> {
             child: NotificationListener(
               onNotification: _handleScrollNotification,
               child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
                 child: Column(
                   children: [
                     Container(

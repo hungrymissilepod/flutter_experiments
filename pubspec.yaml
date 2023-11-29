@@ -19,6 +19,7 @@ dependencies:
   firebase_auth: ^4.7.1
   firebase_analytics: ^10.4.4
   firebase_crashlytics: ^3.3.4
+  statsfl: ^2.3.0
 
 dev_dependencies:
   build_runner: ^2.4.5
@@ -36,4 +37,6 @@ flutter:
   assets:
     - assets/
     - assets/stars/
+    - assets/sparkle/
+    - assets/sparkle/buttons/
 

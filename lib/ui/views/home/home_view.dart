@@ -47,6 +47,16 @@ class HomeView extends StackedView<HomeViewModel> {
                         ),
                       ),
                     ),
+                    TextButton(
+                      onPressed: viewModel.navigateToSparklePartyDemo,
+                      child: Text(
+                        'Sparkle Party Demo',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
