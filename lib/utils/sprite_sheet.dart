@@ -12,7 +12,10 @@ class SpriteSheet {
   late Float32List positions; // cached positions.
 
   SpriteSheet(
-      {required ImageProvider imageProvider, required this.length, required this.frameWidth, this.frameHeight = 0}) {
+      {required ImageProvider imageProvider,
+      required this.length,
+      required this.frameWidth,
+      this.frameHeight = 0}) {
     // Resolve the provider into a stream, then listen for it to complete.
     // This will happen synchronously if it's already loaded into memory.
     ImageStream stream = imageProvider.resolve(ImageConfiguration());
@@ -29,7 +32,8 @@ class SpriteSheet {
       return null;
     }
     int i = frame * 4;
-    return Rect.fromLTRB(positions[i], positions[i + 1], positions[i + 2], positions[i + 3]);
+    return Rect.fromLTRB(
+        positions[i], positions[i + 1], positions[i + 2], positions[i + 3]);
   }
 
   void injectTexCoords(int i, Float32List list, int frame) {
@@ -42,7 +46,9 @@ class SpriteSheet {
     positions = Float32List(length * 4);
     int cols = (image!.width / frameWidth).floor();
     int w = frameWidth;
-    int h = frameHeight == 0 ? image!.height : frameHeight; // default to the image's height
+    int h = frameHeight == 0
+        ? image!.height
+        : frameHeight; // default to the image's height
 
     for (int i = 0; i < length; i++) {
       double x = (i % cols) * w + 0.0;

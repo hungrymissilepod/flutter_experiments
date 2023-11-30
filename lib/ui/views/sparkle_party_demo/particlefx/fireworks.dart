@@ -11,10 +11,12 @@ import 'particle_fx.dart';
 class Fireworks extends ParticleFX {
   double _hue = 120.0;
   int _cooldown = 0; // ticks before another firework is allowed
-  int _nextAuto = 10; // ticks before another firework is automatically triggered
+  int _nextAuto =
+      10; // ticks before another firework is automatically triggered
   Offset? _touchPoint;
 
-  Fireworks({required SpriteSheet spriteSheet, required Size size}) : super(spriteSheet: spriteSheet, size: size);
+  Fireworks({required SpriteSheet spriteSheet, required Size size})
+      : super(spriteSheet: spriteSheet, size: size);
 
   @override
   void fillInitialData() {
@@ -112,7 +114,8 @@ class Fireworks extends ParticleFX {
 
     _touchPoint = null;
     if (--_cooldown < -_nextAuto) {
-      touchPoint = Offset(Rnd.getDouble(0.2, 0.8) * width, Rnd.getDouble(0.2, 0.6) * height);
+      touchPoint = Offset(
+          Rnd.getDouble(0.2, 0.8) * width, Rnd.getDouble(0.2, 0.6) * height);
       _nextAuto = Rnd.getInt(10, 90);
     }
 

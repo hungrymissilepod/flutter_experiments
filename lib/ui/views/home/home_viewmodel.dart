@@ -25,4 +25,8 @@ class HomeViewModel extends BaseViewModel {
   void navigateToSparklePartyDemo() {
     _navigationService.navigateToSparklePartyDemoView();
   }
+
+  void navigateToVerticlePageDemo() {
+    _navigationService.navigateToVerticlePageView();
+  }
 }

@@ -57,6 +57,16 @@ class HomeView extends StackedView<HomeViewModel> {
                         ),
                       ),
                     ),
+                    TextButton(
+                      onPressed: viewModel.navigateToVerticlePageDemo,
+                      child: Text(
+                        'Verticle Page',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],

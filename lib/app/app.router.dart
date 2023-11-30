@@ -5,7 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 import 'package:flutter/material.dart';
 import 'package:flutter_app_template/ui/views/counter/counter_view.dart' as _i4;
 import 'package:flutter_app_template/ui/views/gooey_edge_demo/gooey_edge_demo_view.dart'
@@ -17,8 +17,10 @@ import 'package:flutter_app_template/ui/views/sparkle_party_demo/sparkle_party_d
 import 'package:flutter_app_template/ui/views/stars_demo/stars_demo_view.dart'
     as _i7;
 import 'package:flutter_app_template/ui/views/startup/startup_view.dart' as _i3;
+import 'package:flutter_app_template/ui/views/verticle_page/verticle_page_view.dart'
+    as _i9;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i10;
+import 'package:stacked_services/stacked_services.dart' as _i11;
 
 class Routes {
   static const homeView = '/home-view';
@@ -35,6 +37,8 @@ class Routes {
 
   static const sparklePartyDemoView = '/sparkle-party-demo-view';
 
+  static const verticlePageView = '/verticle-page-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -43,6 +47,7 @@ class Routes {
     gooeyEdgeDemoView,
     starsDemoView,
     sparklePartyDemoView,
+    verticlePageView,
   };
 }
 
@@ -76,50 +81,60 @@ class StackedRouter extends _i1.RouterBase {
       Routes.sparklePartyDemoView,
       page: _i8.SparklePartyDemoView,
     ),
+    _i1.RouteDef(
+      Routes.verticlePageView,
+      page: _i9.VerticlePageView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
       final args = data.getArgs<HomeViewArguments>(nullOk: false);
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i2.HomeView(key: args.key, startingIndex: args.startingIndex),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.CounterView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.CounterView(),
         settings: data,
       );
     },
     _i5.LoginView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.LoginView(),
         settings: data,
       );
     },
     _i6.GooeyEdgeDemoView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.GooeyEdgeDemoView(),
         settings: data,
       );
     },
     _i7.StarsDemoView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.StarsDemoView(),
         settings: data,
       );
     },
     _i8.SparklePartyDemoView: (data) {
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.SparklePartyDemoView(),
+        settings: data,
+      );
+    },
+    _i9.VerticlePageView: (data) {
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i9.VerticlePageView(),
         settings: data,
       );
     },
@@ -137,7 +152,7 @@ class HomeViewArguments {
     required this.startingIndex,
   });
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   final int startingIndex;
 
@@ -158,9 +173,9 @@ class HomeViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i10.NavigationService {
+extension NavigatorStateExtension on _i11.NavigationService {
   Future<dynamic> navigateToHomeView({
-    _i9.Key? key,
+    _i10.Key? key,
     required int startingIndex,
     int? routerId,
     bool preventDuplicates = true,
@@ -260,8 +275,22 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToVerticlePageView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.verticlePageView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithHomeView({
-    _i9.Key? key,
+    _i10.Key? key,
     required int startingIndex,
     int? routerId,
     bool preventDuplicates = true,
@@ -355,6 +384,20 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.sparklePartyDemoView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithVerticlePageView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.verticlePageView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

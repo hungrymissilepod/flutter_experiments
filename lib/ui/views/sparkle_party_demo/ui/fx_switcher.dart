@@ -3,14 +3,24 @@ import 'package:flutter/material.dart';
 typedef FXChangeCallback = void Function(int);
 
 class FXSwitcher extends StatelessWidget {
-  static final List<String> buttonNames = ['Waterfall', 'Fireworks', 'Comet', 'Pinwheel'];
+  static final List<String> buttonNames = [
+    'Waterfall',
+    'Fireworks',
+    'Comet',
+    'Pinwheel'
+  ];
   static final List<String> selectedPaths = [
     'waterfall-selected',
     'fireworks-selected',
     'comet-selected',
     'pinwheel-selected'
   ];
-  static final List<String> paths = ['waterfall-idle', 'fireworks-idle', 'comet-idle', 'pinwheel-idle'];
+  static final List<String> paths = [
+    'waterfall-idle',
+    'fireworks-idle',
+    'comet-idle',
+    'pinwheel-idle'
+  ];
 
   final int activeEffect;
   final FXChangeCallback? callback;
@@ -50,7 +60,8 @@ class _FXSwitcherButton extends StatelessWidget {
   final ImageProvider image;
   final VoidCallback handleTap;
 
-  const _FXSwitcherButton({required this.name, required this.image, required this.handleTap});
+  const _FXSwitcherButton(
+      {required this.name, required this.image, required this.handleTap});
 
   @override
   Widget build(context) {
@@ -68,7 +79,8 @@ class _FXSwitcherButton extends StatelessWidget {
       ),
       Text(
         name,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12),
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12),
       ),
     ]);
   }

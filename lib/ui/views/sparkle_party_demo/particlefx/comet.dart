@@ -14,7 +14,8 @@ class Comet extends ParticleFX {
   double _power = 0.0;
   late Offset _point;
 
-  Comet({required SpriteSheet spriteSheet, required Size size}) : super(spriteSheet: spriteSheet, size: size) {
+  Comet({required SpriteSheet spriteSheet, required Size size})
+      : super(spriteSheet: spriteSheet, size: size) {
     center = Offset(width * 0.5, 30);
     _point = Offset(width * 0.7, height + 50);
   }
@@ -34,7 +35,9 @@ class Comet extends ParticleFX {
     o.life = Rnd.getDouble(50, 100) * (0.5 + 0.5 * m);
 
     double h = (_hue * 0.5 + Rnd.ratio * 40.0 + a / pi * 30) % 360;
-    int color = HSLColor.fromAHSL(1.0, h, 1.0, Rnd.getBool(0.1) ? 1.0 : 0.4).toColor().value;
+    int color = HSLColor.fromAHSL(1.0, h, 1.0, Rnd.getBool(0.1) ? 1.0 : 0.4)
+        .toColor()
+        .value;
     injectColor(i, colors, color);
 
     if (o.animate) {
@@ -49,7 +52,8 @@ class Comet extends ParticleFX {
     }
     fillInitialData();
 
-    _point += ((touchPoint ?? center) - _point) * (touchPoint == null ? 0.05 : 0.2);
+    _point +=
+        ((touchPoint ?? center) - _point) * (touchPoint == null ? 0.05 : 0.2);
 
     _hue += 10;
 

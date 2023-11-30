@@ -36,12 +36,17 @@ class SparkPartyDemoWidget extends StatefulWidget {
 
   static final List<FXEntry> fxs = [
     FXEntry("Waterfall",
-        create: ({required spriteSheet, required size}) => Waterfall(spriteSheet: spriteSheet, size: size)),
+        create: ({required spriteSheet, required size}) =>
+            Waterfall(spriteSheet: spriteSheet, size: size)),
     FXEntry("Fireworks",
-        create: ({required spriteSheet, required size}) => Fireworks(spriteSheet: spriteSheet, size: size)),
-    FXEntry("Comet", create: ({required spriteSheet, required size}) => Comet(spriteSheet: spriteSheet, size: size)),
+        create: ({required spriteSheet, required size}) =>
+            Fireworks(spriteSheet: spriteSheet, size: size)),
+    FXEntry("Comet",
+        create: ({required spriteSheet, required size}) =>
+            Comet(spriteSheet: spriteSheet, size: size)),
     FXEntry("Pinwheel",
-        create: ({required spriteSheet, required size}) => Pinwheel(spriteSheet: spriteSheet, size: size)),
+        create: ({required spriteSheet, required size}) =>
+            Pinwheel(spriteSheet: spriteSheet, size: size)),
   ];
 
   static final List<String> instructions = [
@@ -55,7 +60,8 @@ class SparkPartyDemoWidget extends StatefulWidget {
   State<SparkPartyDemoWidget> createState() => _SparkPartyDemoWidgetState();
 }
 
-class _SparkPartyDemoWidgetState extends State<SparkPartyDemoWidget> with TickerProviderStateMixin {
+class _SparkPartyDemoWidgetState extends State<SparkPartyDemoWidget>
+    with TickerProviderStateMixin {
   int _fxIndex = 0;
   int _buttonIndex = 0;
 
@@ -65,8 +71,10 @@ class _SparkPartyDemoWidgetState extends State<SparkPartyDemoWidget> with Ticker
   @override
   void initState() {
     super.initState();
-    _transitionController = AnimationController(vsync: this, duration: Duration(milliseconds: 350));
-    _textController = AnimationController(vsync: this, duration: Duration(milliseconds: 800));
+    _transitionController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+    _textController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
 
     Listenable.merge([_transitionController, _textController]).addListener(() {
       setState(() {});
@@ -105,7 +113,8 @@ class _SparkPartyDemoWidgetState extends State<SparkPartyDemoWidget> with Ticker
                       fx: SparkPartyDemoWidget.fxs[_fxIndex],
                       size: constraints.biggest,
                       spriteSheet: SpriteSheet(
-                        imageProvider: const AssetImage('assets/sparkle/sparkleparty_spritesheet_2.png'),
+                        imageProvider: const AssetImage(
+                            'assets/sparkle/sparkleparty_spritesheet_2.png'),
                         length: 16,
                         frameWidth: 64,
                         frameHeight: 64,
@@ -118,7 +127,8 @@ class _SparkPartyDemoWidgetState extends State<SparkPartyDemoWidget> with Ticker
           ),
           IgnorePointer(
             child: Center(
-              child: Image.asset('assets/sparkle/sparkleparty_logo_outline.png'),
+              child:
+                  Image.asset('assets/sparkle/sparkleparty_logo_outline.png'),
             ),
           ),
           FXSwitcher(activeEffect: _buttonIndex, callback: _handleFxChange),

@@ -11,6 +11,7 @@ import 'package:flutter_app_template/services/dio_service.dart';
 import 'package:flutter_app_template/ui/views/gooey_edge_demo/gooey_edge_demo_view.dart';
 import 'package:flutter_app_template/ui/views/stars_demo/stars_demo_view.dart';
 import 'package:flutter_app_template/ui/views/sparkle_party_demo/sparkle_party_demo_view.dart';
+import 'package:flutter_app_template/ui/views/verticle_page/verticle_page_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -22,6 +23,7 @@ import 'package:flutter_app_template/ui/views/sparkle_party_demo/sparkle_party_d
     MaterialRoute(page: GooeyEdgeDemoView),
     MaterialRoute(page: StarsDemoView),
     MaterialRoute(page: SparklePartyDemoView),
+    MaterialRoute(page: VerticlePageView),
 // @stacked-route
   ],
   dependencies: [

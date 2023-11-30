@@ -3,7 +3,8 @@ import 'package:flutter_app_template/ui/views/sparkle_party_demo/particlefx/part
 import 'package:flutter_app_template/utils/sprite_sheet.dart';
 
 class FXEntry {
-  ParticleFX Function({required SpriteSheet spriteSheet, required Size size}) create;
+  ParticleFX Function({required SpriteSheet spriteSheet, required Size size})
+      create;
   String name;
   ImageProvider? icon;
 

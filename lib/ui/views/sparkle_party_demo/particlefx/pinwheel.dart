@@ -13,7 +13,8 @@ class Pinwheel extends ParticleFX {
   late Offset _point;
   int arms = 11;
 
-  Pinwheel({required SpriteSheet spriteSheet, required Size size}) : super(spriteSheet: spriteSheet, size: size) {
+  Pinwheel({required SpriteSheet spriteSheet, required Size size})
+      : super(spriteSheet: spriteSheet, size: size) {
     _point = center;
   }
 
@@ -22,7 +23,9 @@ class Pinwheel extends ParticleFX {
 
     o.x = pt.dx;
     o.y = pt.dy;
-    double a = Rnd.getInt(0, arms) / arms * pi * 2 - _hue * 0.007 + Rnd.getDouble(0, pi / arms / 2);
+    double a = Rnd.getInt(0, arms) / arms * pi * 2 -
+        _hue * 0.007 +
+        Rnd.getDouble(0, pi / arms / 2);
     double v = Rnd.getDouble(10, 12.0);
     o.vx = sin(a) * v;
     o.vy = cos(a) * v;
@@ -32,7 +35,9 @@ class Pinwheel extends ParticleFX {
     o.frame = 0;
 
     double h = (_hue * 0.2 + Rnd.ratio * 40.0 + a / pi * 180) % 360;
-    int color = HSLColor.fromAHSL(1.0, h, 1.0, Rnd.getBit(0.05) * 0.6 + 0.4).toColor().value;
+    int color = HSLColor.fromAHSL(1.0, h, 1.0, Rnd.getBit(0.05) * 0.6 + 0.4)
+        .toColor()
+        .value;
     injectColor(i, colors, color);
 
     if (o.animate) {
@@ -48,7 +53,8 @@ class Pinwheel extends ParticleFX {
     }
     fillInitialData();
 
-    _point += ((touchPoint ?? center) - _point) * (touchPoint == null ? 0.05 : 0.2);
+    _point +=
+        ((touchPoint ?? center) - _point) * (touchPoint == null ? 0.05 : 0.2);
 
     _hue += 10;
 

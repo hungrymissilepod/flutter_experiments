@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-void injectVertex(int i, Float32List list, double l, double t, double r, double b) {
+void injectVertex(
+    int i, Float32List list, double l, double t, double r, double b) {
   i *= 12;
   // Injects position values for the 6 corners (two triangles) of a sprite.
   // right triangle:
@@ -23,5 +24,6 @@ void injectVertex(int i, Float32List list, double l, double t, double r, double 
 void injectColor(int i, Int32List list, int color) {
   i *= 6;
   // Injects color values for the 6 corners (two triangles) of a sprite.
-  list[i + 0] = list[i + 1] = list[i + 2] = list[i + 3] = list[i + 4] = list[i + 5] = color;
+  list[i + 0] = list[i + 1] =
+      list[i + 2] = list[i + 3] = list[i + 4] = list[i + 5] = color;
 }

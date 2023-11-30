@@ -10,7 +10,10 @@ class Waterfall extends ParticleFX {
   double _hue = 0.0;
 
   Waterfall({required SpriteSheet spriteSheet, required Size size})
-      : super(spriteSheet: spriteSheet, size: size, count: size.shortestSide > 600 ? 1000 : 1000);
+      : super(
+            spriteSheet: spriteSheet,
+            size: size,
+            count: size.shortestSide > 600 ? 1000 : 1000);
 
   @override
   void fillInitialData() {
@@ -40,7 +43,8 @@ class Waterfall extends ParticleFX {
     o.scale = Rnd.getDouble(0.0, 1.2);
 
     double h = (_hue + Rnd.ratio * 40.0 + o.x / width * 90.0) % 360;
-    int color = HSLColor.fromAHSL(1.0, h, 1.0, o.animate ? 1.0 : 0.4).toColor().value;
+    int color =
+        HSLColor.fromAHSL(1.0, h, 1.0, o.animate ? 1.0 : 0.4).toColor().value;
     injectColor(i, colors, color);
   }
 

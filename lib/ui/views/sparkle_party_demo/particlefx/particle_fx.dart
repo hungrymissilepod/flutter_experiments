@@ -21,7 +21,8 @@ abstract class ParticleFX with ChangeNotifier {
   late Float32List xy;
   ui.Vertices? vertices;
 
-  ParticleFX({required this.spriteSheet, required Size size, this.count = 10000}) {
+  ParticleFX(
+      {required this.spriteSheet, required Size size, this.count = 10000}) {
     width = size.width;
     height = size.height;
     xy = Float32List(12 * count);
@@ -60,7 +61,8 @@ abstract class ParticleFX with ChangeNotifier {
       return;
     }
 
-    vertices = ui.Vertices.raw(VertexMode.triangles, xy, textureCoordinates: uv, colors: colors);
+    vertices = ui.Vertices.raw(VertexMode.triangles, xy,
+        textureCoordinates: uv, colors: colors);
     notifyListeners();
   }
 }
@@ -76,5 +78,11 @@ class Particle {
   bool animate;
 
   Particle(
-      {this.x = 0.0, this.y = 0.0, this.vx = 0.0, this.vy = 0.0, this.life = 0, this.frame = 0, this.animate = false});
+      {this.x = 0.0,
+      this.y = 0.0,
+      this.vx = 0.0,
+      this.vy = 0.0,
+      this.life = 0,
+      this.frame = 0,
+      this.animate = false});
 }

@@ -11,13 +11,18 @@ class FxRenderer extends StatefulWidget {
   final FXEntry fx;
   final Size size;
 
-  const FxRenderer({required this.spriteSheet, required this.fx, required this.size, super.key});
+  const FxRenderer(
+      {required this.spriteSheet,
+      required this.fx,
+      required this.size,
+      super.key});
 
   @override
   State<FxRenderer> createState() => _FxRendererState();
 }
 
-class _FxRendererState extends State<FxRenderer> with SingleTickerProviderStateMixin {
+class _FxRendererState extends State<FxRenderer>
+    with SingleTickerProviderStateMixin {
   late Ticker _ticker;
   ParticleFX? _fxWidget;
 
@@ -25,7 +30,8 @@ class _FxRendererState extends State<FxRenderer> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _ticker = createTicker(_tick)..start();
-    _fxWidget = widget.fx.create(spriteSheet: widget.spriteSheet, size: widget.size);
+    _fxWidget =
+        widget.fx.create(spriteSheet: widget.spriteSheet, size: widget.size);
   }
 
   @override
@@ -37,7 +43,8 @@ class _FxRendererState extends State<FxRenderer> with SingleTickerProviderStateM
   @override
   void didUpdateWidget(FxRenderer oldWidget) {
     if (oldWidget.size != widget.size || oldWidget.fx != widget.fx) {
-      _fxWidget = widget.fx.create(spriteSheet: widget.spriteSheet, size: widget.size);
+      _fxWidget =
+          widget.fx.create(spriteSheet: widget.spriteSheet, size: widget.size);
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -61,11 +68,14 @@ class _FxRendererState extends State<FxRenderer> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTapDown: (TapDownDetails details) => setTouchPoint(details.localPosition),
+      onTapDown: (TapDownDetails details) =>
+          setTouchPoint(details.localPosition),
       onTapUp: (TapUpDetails details) => setTouchPoint(null),
-      onPanStart: (DragStartDetails details) => setTouchPoint(details.localPosition),
+      onPanStart: (DragStartDetails details) =>
+          setTouchPoint(details.localPosition),
       onPanEnd: (DragEndDetails details) => setTouchPoint(null),
-      onPanUpdate: (DragUpdateDetails details) => setTouchPoint(details.localPosition),
+      onPanUpdate: (DragUpdateDetails details) =>
+          setTouchPoint(details.localPosition),
       child: CustomPaint(
         painter: ParticleFXPainter(fx: _fxWidget!),
         child: Container(),
