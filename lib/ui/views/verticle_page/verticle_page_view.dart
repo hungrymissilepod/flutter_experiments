@@ -47,7 +47,8 @@ class VerticlePageDemoWidget extends StatefulWidget {
   State<VerticlePageDemoWidget> createState() => _VerticlePageDemoWidgetState();
 }
 
-class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with TickerProviderStateMixin {
+class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget>
+    with TickerProviderStateMixin {
   int currentPage = 0;
 
   /// Animation for the new page that animates on screen
@@ -66,7 +67,8 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
 
   static const Offset logoOffset = Offset(20, 60);
   static const double logoWidth = 100;
-  Offset circleOffset = Offset(logoOffset.dx + (logoWidth / 2), logoOffset.dy + (logoWidth / 2));
+  Offset circleOffset =
+      Offset(logoOffset.dx + (logoWidth / 2), logoOffset.dy + (logoWidth / 2));
 
   /// Have we already cycled through all pages?
   /// Need this to fix an edge case where the wrong image is displayed
@@ -78,15 +80,19 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
     super.initState();
 
     /// All animations have same duration
-    pageAnimationController = circleRadiusAnimationController = circleSizeAnimationController = AnimationController(
+    pageAnimationController = circleRadiusAnimationController =
+        circleSizeAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
     );
 
-    pageAnimation = CurvedAnimation(parent: pageAnimationController, curve: Curves.easeIn);
+    pageAnimation =
+        CurvedAnimation(parent: pageAnimationController, curve: Curves.easeIn);
 
-    circleRadiusAnimation = circleSizeTween.animate(circleRadiusAnimationController);
-    circleSizeAnimation = circleSizeTween.animate(circleSizeAnimationController);
+    circleRadiusAnimation =
+        circleSizeTween.animate(circleRadiusAnimationController);
+    circleSizeAnimation =
+        circleSizeTween.animate(circleSizeAnimationController);
   }
 
   @override
@@ -168,7 +174,8 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
             animation: circleRadiusAnimation,
             builder: (context, child) {
               return CustomPaint(
-                painter: CirclePainter(circleRadiusAnimation.value, circleSizeAnimation.value, circleOffset),
+                painter: CirclePainter(circleRadiusAnimation.value,
+                    circleSizeAnimation.value, circleOffset),
                 child: Container(),
               );
             },

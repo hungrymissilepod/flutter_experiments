@@ -29,4 +29,8 @@ class HomeViewModel extends BaseViewModel {
   void navigateToVerticlePageDemo() {
     _navigationService.navigateToVerticlePageView();
   }
+
+  void navigateToTrigonometricPageDemo() {
+    _navigationService.navigateToTrigonometricView();
+  }
 }

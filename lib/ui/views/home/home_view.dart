@@ -69,6 +69,16 @@ class HomeView extends StackedView<HomeViewModel> {
                         ),
                       ),
                     ),
+                    TextButton(
+                      onPressed: viewModel.navigateToTrigonometricPageDemo,
+                      child: const Text(
+                        'Trigonometric Demo',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
