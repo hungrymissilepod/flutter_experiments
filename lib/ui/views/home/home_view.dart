@@ -1,3 +1,4 @@
+import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_app_template/ui/common/app_colors.dart';
@@ -25,11 +26,12 @@ class HomeView extends StackedView<HomeViewModel> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 verticalSpaceLarge,
-                Column(
+                SeparatedColumn(
+                  separatorBuilder: () => const SizedBox(height: 10),
                   children: [
                     TextButton(
                       onPressed: viewModel.navigateToGooeyEdgeDemo,
-                      child: Text(
+                      child: const Text(
                         'Gooey Edge Demo',
                         style: TextStyle(
                           color: Colors.black,
@@ -39,7 +41,7 @@ class HomeView extends StackedView<HomeViewModel> {
                     ),
                     TextButton(
                       onPressed: viewModel.navigateToStarsDemo,
-                      child: Text(
+                      child: const Text(
                         'Stars Demo',
                         style: TextStyle(
                           color: Colors.black,
@@ -49,7 +51,7 @@ class HomeView extends StackedView<HomeViewModel> {
                     ),
                     TextButton(
                       onPressed: viewModel.navigateToSparklePartyDemo,
-                      child: Text(
+                      child: const Text(
                         'Sparkle Party Demo',
                         style: TextStyle(
                           color: Colors.black,
@@ -59,8 +61,8 @@ class HomeView extends StackedView<HomeViewModel> {
                     ),
                     TextButton(
                       onPressed: viewModel.navigateToVerticlePageDemo,
-                      child: Text(
-                        'Verticle Page',
+                      child: const Text(
+                        'Circle Clipper Demo',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,

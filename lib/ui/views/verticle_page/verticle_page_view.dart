@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/ui/views/verticle_page/ui/circular_reveal_animation.dart';
+import 'package:flutter_app_template/ui/views/verticle_page/ui/circle_clipper.dart';
+import 'package:flutter_app_template/ui/views/verticle_page/ui/circle_painter.dart';
+import 'dart:math';
 import 'package:flutter_app_template/ui/views/verticle_page/ui/verticle_page.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,14 +16,14 @@ class VerticlePageView extends StackedView<VerticlePageViewModel> {
     VerticlePageViewModel viewModel,
     Widget? child,
   ) {
-    return VerticlePageDemoWidget(
+    return const VerticlePageDemoWidget(
       pages: [
+        VerticlePage(index: 0),
         VerticlePage(index: 1),
         VerticlePage(index: 2),
         VerticlePage(index: 3),
         VerticlePage(index: 4),
         VerticlePage(index: 5),
-        VerticlePage(index: 6),
       ],
     );
   }
@@ -46,80 +48,58 @@ class VerticlePageDemoWidget extends StatefulWidget {
 }
 
 class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with TickerProviderStateMixin {
-  PageController? pageController;
   int currentPage = 0;
 
-  AnimationController? animationController;
-  late Animation<double> animation;
+  /// Animation for the new page that animates on screen
+  late Animation<double> pageAnimation;
+  late AnimationController pageAnimationController;
 
-  late Animation<double> circleAnimation;
-  AnimationController? circleAnimationController;
+  /// Circle radius animation
+  late Animation<double> circleRadiusAnimation;
+  late AnimationController circleRadiusAnimationController;
 
-  Tween<double> _strokeTween = Tween(begin: 0, end: 2000);
-  Tween<double> _sizeTween = Tween(begin: 0, end: 2000);
-
+  /// Circle size animation
   late Animation<double> circleSizeAnimation;
-  AnimationController? circleSizeAnimationController;
+  late AnimationController circleSizeAnimationController;
+
+  final Tween<double> circleSizeTween = Tween(begin: 0, end: 2000);
+
+  static const Offset logoOffset = Offset(20, 60);
+  static const double logoWidth = 100;
+  Offset circleOffset = Offset(logoOffset.dx + (logoWidth / 2), logoOffset.dy + (logoWidth / 2));
+
+  /// Have we already cycled through all pages?
+  /// Need this to fix an edge case where the wrong image is displayed
+  /// in the background when re-starting the cycle
+  bool hasCycledPages = false;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController();
 
-    animationController = AnimationController(
+    /// All animations have same duration
+    pageAnimationController = circleRadiusAnimationController = circleSizeAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 900),
     );
 
-    circleAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 900));
+    pageAnimation = CurvedAnimation(parent: pageAnimationController, curve: Curves.easeIn);
 
-    circleSizeAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 900));
-
-    animation = CurvedAnimation(parent: animationController!, curve: Curves.easeIn);
-
-    circleAnimation = _strokeTween.animate(circleAnimationController!)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          circleAnimationController?.reset();
-        }
-      });
-
-    circleSizeAnimation = _sizeTween.animate(circleSizeAnimationController!)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          circleSizeAnimationController?.reset();
-        }
-      });
-
-    // circleSizeAnimation = CurvedAnimation(parent: circleSizeAnimationController!, curve: Curves.easeIn)
-    //   ..addStatusListener((status) {
-    //     if (status == AnimationStatus.completed) {
-    //       circleSizeAnimationController?.reset();
-    //     }
-    //   });
-
-    animationController?.forward();
-    // circleAnimationController?.forward();
-    // circleSizeAnimationController?.forward();
+    circleRadiusAnimation = circleSizeTween.animate(circleRadiusAnimationController);
+    circleSizeAnimation = circleSizeTween.animate(circleSizeAnimationController);
   }
 
   @override
   void dispose() {
-    pageController?.dispose();
-
-    animationController?.dispose();
+    pageAnimationController.dispose();
+    circleRadiusAnimationController.dispose();
+    circleSizeAnimationController.dispose();
     super.dispose();
   }
 
   void onPageChanged(int value) {
     currentPage = value;
   }
-
-  Future<void> animateToPage(int value) async {
-    pageController?.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-  }
-
-  bool hasCycledPages = false;
 
   int previousPage() {
     int prevPage = currentPage - 1;
@@ -133,30 +113,39 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
     return prevPage;
   }
 
+  void onPressed() {
+    setState(() {
+      currentPage++;
+      if (currentPage > widget.pages.length - 1) {
+        /// set [hasCycledPages] so that we can fix edge case where background image was displayed incorrectly
+        hasCycledPages = true;
+        currentPage = 0;
+      }
+    });
+
+    pageAnimationController.reset();
+    circleRadiusAnimationController.reset();
+    circleSizeAnimationController.reset();
+
+    pageAnimationController.forward();
+    circleRadiusAnimationController.forward();
+    circleSizeAnimationController.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
-        onPressed: () {
-          setState(() {
-            currentPage++;
-
-            if (currentPage > widget.pages.length - 1) {
-              hasCycledPages = true;
-              currentPage = 0;
-            }
-            print('currentPage: $currentPage');
-          });
-          animationController?.reset();
-          animationController?.forward();
-
-          circleAnimationController?.reset();
-          circleSizeAnimationController?.reset();
-          circleAnimationController?.forward();
-          circleSizeAnimationController?.forward();
-        },
+        backgroundColor: Colors.transparent,
+        onPressed: onPressed,
+        child: Transform.rotate(
+          angle: -pi / 4,
+          child: const Icon(
+            Icons.arrow_circle_down_sharp,
+            size: 60,
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -165,10 +154,10 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
 
           /// Clipper to show the new page
           AnimatedBuilder(
-            animation: animation,
+            animation: pageAnimation,
             builder: (context, index) {
               return ClipPath(
-                clipper: ShapeClipper(circleSizeAnimation.value),
+                clipper: CircleClipper(circleSizeAnimation.value, circleOffset),
                 child: widget.pages[currentPage],
               );
             },
@@ -176,10 +165,10 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
 
           /// Circle animation
           AnimatedBuilder(
-            animation: circleAnimation,
+            animation: circleRadiusAnimation,
             builder: (context, child) {
               return CustomPaint(
-                painter: ShapePainter(circleAnimation.value, circleSizeAnimation.value),
+                painter: CirclePainter(circleRadiusAnimation.value, circleSizeAnimation.value, circleOffset),
                 child: Container(),
               );
             },
@@ -187,11 +176,11 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
 
           /// Logo
           Positioned(
-            top: 60,
-            left: 20,
-            child: Image(
-              width: 100,
-              height: 100,
+            left: logoOffset.dx,
+            top: logoOffset.dy,
+            child: const Image(
+              width: logoWidth,
+              height: logoWidth,
               image: AssetImage(
                 'assets/verticle_pages/logo.png',
               ),
@@ -200,137 +189,6 @@ class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> with Ti
           ),
         ],
       ),
-      // body: AnimatedBuilder(
-      //   animation: circleAnimation,
-      //   builder: (context, child) {
-      //     return CustomPaint(
-      //       painter: ShapePainter(circleAnimation.value, circleSizeAnimation.value),
-      //       child: Container(),
-      //     );
-      //   },
-      // ),
-
-      // body: CustomPaint(
-      //   painter: ShapePainter(circleAnimation.value),
-      //   child: Container(),
-      // ),
-      // body: Stack(
-      //   children: [
-      //     CircularRevealAnimation(
-      //       child: widget.pages[currentPage],
-      //       animation: animation,
-      //     ),
-
-      //     // widget.pages[currentPage],
-      //     // widget.pages[0],
-      //     // CircularRevealAnimation(
-      //     //   child: widget.pages[currentPage + 1],
-      //     //   animation: animation,
-      //     // ),
-      //   ],
-      // ),
     );
-  }
-}
-
-// class VerticlePageDemoWidget extends StatefulWidget {
-//   const VerticlePageDemoWidget({
-//     super.key,
-//     required this.pages,
-//   });
-
-//   final List<Widget> pages;
-
-//   @override
-//   State<VerticlePageDemoWidget> createState() => _VerticlePageDemoWidgetState();
-// }
-
-// class _VerticlePageDemoWidgetState extends State<VerticlePageDemoWidget> {
-//   PageController? pageController;
-//   int currentPage = 0;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     pageController = PageController();
-//   }
-
-//   @override
-//   void dispose() {
-//     pageController?.dispose();
-//     super.dispose();
-//   }
-
-//   void onPageChanged(int value) {
-//     currentPage = value;
-//   }
-
-//   Future<void> animateToPage(int value) async {
-//     pageController?.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       floatingActionButton: FloatingActionButton(
-//         backgroundColor: Colors.orange,
-//         onPressed: () {
-//           animateToPage(currentPage + 1);
-//         },
-//       ),
-//       body: PageView.builder(
-//         controller: pageController,
-//         scrollDirection: Axis.vertical,
-//         physics: const ClampingScrollPhysics(),
-//         onPageChanged: onPageChanged,
-//         itemBuilder: (context, index) {
-//           return widget.pages[index % widget.pages.length];
-//         },
-//       ),
-//     );
-//   }
-// }
-
-class ShapePainter extends CustomPainter {
-  final double strokeWidth;
-  final double radius;
-
-  ShapePainter(this.strokeWidth, this.radius);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..color = Colors.teal
-      ..strokeWidth = strokeWidth
-      ..style = PaintingStyle.stroke
-      ..strokeJoin = StrokeJoin.round;
-
-    // Offset center = Offset(size.width / 2, size.height / 2);
-    Offset center = Offset(70, 110);
-    canvas.drawCircle(center, radius, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
-}
-
-class ShapeClipper extends CustomClipper<Path> {
-  final double radius;
-
-  ShapeClipper(this.radius);
-  @override
-  getClip(Size size) {
-    var path = Path();
-    path.addOval(Rect.fromCircle(center: Offset(70, 110), radius: radius));
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper oldClipper) {
-    return true;
   }
 }
