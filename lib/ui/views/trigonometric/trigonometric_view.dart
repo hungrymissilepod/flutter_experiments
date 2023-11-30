@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
@@ -65,17 +66,32 @@ class _TrigonometricDemoState extends State<TrigonometricDemo> {
   // Choose a random color for this iteration
   var colors = List.generate(20, (index) => ColorList[Random().nextInt(ColorList.length)]);
 
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 1)).then((value) async {
-      for (int i = 0; i < 200; i++) {
-        setState(() {
-          iter = iter + 0.00001;
-        });
-        await Future.delayed(Duration(milliseconds: 50));
-      }
+  }
+
+  Future<void> _schedule() async {
+    _timer = Timer(const Duration(seconds: 1), () async {
+      _tick();
     });
+  }
+
+  void _tick() async {
+    for (int i = 0; i < 200; i++) {
+      setState(() {
+        iter = iter + 0.00001;
+      });
+      await Future.delayed(const Duration(milliseconds: 50));
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -73,6 +75,16 @@ class HomeView extends StackedView<HomeViewModel> {
                       onPressed: viewModel.navigateToTrigonometricPageDemo,
                       child: const Text(
                         'Trigonometric Demo',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: viewModel.navigateToSquaresDemo,
+                      child: const Text(
+                        'Squares Squares Squares Demo',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,

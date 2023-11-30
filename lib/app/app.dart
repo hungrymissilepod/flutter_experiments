@@ -13,6 +13,7 @@ import 'package:flutter_app_template/ui/views/stars_demo/stars_demo_view.dart';
 import 'package:flutter_app_template/ui/views/sparkle_party_demo/sparkle_party_demo_view.dart';
 import 'package:flutter_app_template/ui/views/verticle_page/verticle_page_view.dart';
 import 'package:flutter_app_template/ui/views/trigonometric/trigonometric_view.dart';
+import 'package:flutter_app_template/ui/views/squares_demo/squares_demo_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,6 +27,7 @@ import 'package:flutter_app_template/ui/views/trigonometric/trigonometric_view.d
     MaterialRoute(page: SparklePartyDemoView),
     MaterialRoute(page: VerticlePageView),
     MaterialRoute(page: TrigonometricView),
+    MaterialRoute(page: SquaresDemoView),
 // @stacked-route
   ],
   dependencies: [
